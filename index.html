@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Flash Cards</title>
-        <!-- We've provided some styles for you, aren't we nice? -->
-        <link rel="stylesheet" type="text/css" href="reset.css" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
-    </head>
-    <body>
-    </body>
+
+<head>
+    <title>Flash Cards</title>
+    <!-- We've provided some styles for you, aren't we nice? -->
+    <link rel="stylesheet" type="text/css" href="reset.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="/controllers/flashcard.controller.js"></script>
+</head>
+
+<body ng-app="FlashCards" ng-controller="MainController">
+        <div class="flash-card" ng-repeat="flashCard in flashCards | orderBy: 'question'" ng-controller="FlashCardController">
+            <h1> {{ flashCard.question | uppercase }} </h1>
+            <ul class="flash-card-answers">
+                <li class="flash-card-answer" ng-repeat="answer in flashCard.answers" ng-click="answerQuestion(answer)">
+                    {{answer.text}}
+                </li>
+            </ul>
+            <h2 class="answer-feedback" ng-class="{ correct: answeredCorrectly, incorrect: answeredCorrectly === false }" ng-show="answered">
+          <span ng-show="answeredCorrectly">Yeah, you got it right!</span>
+          <span ng-show="!answeredCorrectly">Nope, you got it wrong.</span>
+        </h2>
+        </div>
+</body>
+
 </html>
